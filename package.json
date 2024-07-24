@@ -7,7 +7,17 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "docker:dev:build": "docker compose -f ./dockerfiles/docker-compose.dev.yaml build",
+    "docker:dev:up": "docker compose -f ./dockerfiles/docker-compose.dev.yaml -p nuxt-dev up -d",
+    "docker:dev:ps": "docker compose -f ./dockerfiles/docker-compose.dev.yaml -p nuxt-dev ps --all",
+    "docker:dev:bash": "docker compose -f ./dockerfiles/docker-compose.dev.yaml -p nuxt-dev exec nuxt /bin/sh",
+    "docker:dev:rm": "docker compose -f ./dockerfiles/docker-compose.dev.yaml -p nuxt-dev rm",
+    "docker:dev:down": "docker compose -f ./dockerfiles/docker-compose.dev.yaml -p nuxt-dev down",
+    "docker:prod:build": "docker compose -f ./dockerfiles/docker-compose.prod.yaml build",
+    "docker:prod:up": "docker compose -f ./dockerfiles/docker-compose.prod.yaml up",
+    "docker:prod:rm": "docker compose -f ./dockerfiles/docker-compose.prod.yaml rm",
+    "docker:prod:down": "docker compose -f ./dockerfiles/docker-compose.prod.yaml down"
   },
   "dependencies": {
     "nuxt": "^3.12.4",

@@ -1,3 +1,7 @@
+# Wordpress
+dockerfiles/plugins
+dockerfiles/themes
+
 # Nuxt dev/build outputs
 .output
 .data

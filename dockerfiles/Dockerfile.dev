@@ -1,0 +1,19 @@
+FROM node:20.16-alpine AS dev
+
+WORKDIR /app
+
+# RUN apk update && apk upgrade
+# RUN apk add git
+
+COPY ./package*.json /app/
+
+RUN npm install && npm cache clean --force
+
+COPY . .
+
+# RUN npm run dev
+
+#ENV PATH ./node_modules/.bin/:$PATH
+
+# Start is the same as before
+CMD ["npm", "run", "dev"]

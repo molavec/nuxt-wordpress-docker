@@ -1,0 +1,9 @@
+services:
+  nuxt:
+    build:
+      context: ../
+      dockerfile: ./dockerfiles/Dockerfile.prod
+    image: nuxt-prod
+    container_name: nuxt-prod
+    ports:
+      - "3001:3000"
