@@ -1,4 +1,5 @@
 dockerfiles
+docs
 node_modules
 .git
 .gitignore

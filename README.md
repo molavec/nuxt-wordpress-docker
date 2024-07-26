@@ -1,75 +1,81 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 Minimal Starter + Wordpress + Docker
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A Docker Development Environment for a Minimal Nuxt 3 conected with Wordpress.  
 
 ## Setup
 
-Make sure to install the dependencies:
+Start containers. 
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+npm run docker:dev:up
 ```
+Note: Consider a minute to start systems.
 
-## Development Server
+Nuxt: http://localhost:3000
+Wordpress: http://localhost:8080
 
-Start the development server on `http://localhost:3000`:
+## How it works
+
+Development server is running in conteainers, so `it is not required start dev server`.
+
+Check `.dockerfiles/Dockerfile.dev` nuxt development server image and `.dockerfiles/docker-compose.dev.yaml` for container compose.  
+
+## Install dependencies
+
+To keep correct module versions access to container shell.
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+ npm run docker:dev:sh
 ```
-
-## Production
-
-Build the application for production:
+Then, install new packages from conatiner shell
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+ npm run docker:dev:sh
 ```
 
-Locally preview production build:
+
+## Restart development server.
+
+Some alternatives
+
+1. Stop Contianer
 
 ```bash
-# npm
-npm run preview
+npm run docker:dev:stop nuxt
+npm run docker:dev:up nuxt
+```
+2. Stop server by PID
 
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```bash
+npm run docker:dev:sh # Host Terminal: access to container
+ps aux #inside container: check process PID
+kill -9 pid #inside container: kill process by PID
+npm run docker:dev:up nuxt # Host Terminal: restart container 
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Docker Logs
+
+```bash
+npm run docker:dev:logs --tail nuxt
+```
+
+
+## Troubleshooting
+
+### Wordpress API Access
+
+To ger access to API is necessary setup Permalinks
+
+![permalinks setup](./docs/permalink.jpg)
+
+https://stackoverflow.com/questions/69681308/cannot-access-woocommerce-rest-api-in-wordpress-5-8-1
+
+### NUXT reaload problem docker
+Nuxt nitro server has a bug with docker when refresh a file. So, it is necessary remove `/tmp/nitro`. In `package.json`:
+
+```bash
+"dev": "rm -rf /tmp/nitro && nuxt dev",
+``` 
+https://github.com/nuxt/nuxt/issues/13587#issuecomment-1397308015
+
